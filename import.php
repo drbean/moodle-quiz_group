@@ -23,7 +23,7 @@
  * @package core_group
  */
 
-require_once('../config.php');
+require_once($CFG->dirroot . '/config.php');
 require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot.'/group/lib.php');
 include_once('import_form.php');
