@@ -26,4 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Group report';
-$string['pluginname'] = 'Group report';
+$string['reportgroup'] = 'Group report';
+$string['groupreport'] = 'Group report';
