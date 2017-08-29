@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'quiz_group';
 $plugin->release = '0.1.0';
-$plugin->version = 2017082600;
+$plugin->version = 2017082900;
 $plugin->requires = 2017051500;
 $plugin->maturity = MATURITY_ALPHA;
