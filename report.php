@@ -18,7 +18,7 @@
  * This file defines the quiz responses report class.
  *
  * @package   quiz_group
- * @copyright 2006 Jean-Michel Vedrine
+ * @copyright 2017 Dr Bean
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
