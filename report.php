@@ -232,9 +232,7 @@ class quiz_group_report extends quiz_attempts_report {
      */
     protected function add_user_columns($table, &$columns, &$headers) {
         global $CFG;
-	$columns[] = 'lastname';
-	$headers[] = get_string('lastname');
-	$columns[] = 'firstname';
-	$headers[] = get_string('firstname');
+	$columns[] = 'fullname';
+	$headers[] = get_string('name');
     }
 }
