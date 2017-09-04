@@ -220,4 +220,21 @@ class quiz_group_report extends quiz_attempts_report {
         }
         return true;
     }
+
+
+    /**
+     * In attemptsreport.php, but not downloading, no email, pics
+     *
+     * Add all the user-related columns to the $columns and $headers arrays.
+     * @param table_sql $table the table being constructed.
+     * @param array $columns the list of columns. Added to.
+     * @param array $headers the columns headings. Added to.
+     */
+    protected function add_user_columns($table, &$columns, &$headers) {
+        global $CFG;
+	$columns[] = 'lastname';
+	$headers[] = get_string('lastname');
+	$columns[] = 'firstname';
+	$headers[] = get_string('firstname');
+    }
 }
