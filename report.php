@@ -25,7 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/quiz/report/responses/report.php');
+require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
+require_once($CFG->dirroot . '/mod/quiz/report/group/group_table.php');
 
 
 /**
