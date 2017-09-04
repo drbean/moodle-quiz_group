@@ -76,14 +76,6 @@ class quiz_group_report extends quiz_attempts_report {
         $table = new $tableclassname($quiz, $this->context, $this->qmsubselect,
             $options, $groupstudentsjoins, $studentsjoins,
             $questions, $options->get_url());
-        $filename = quiz_report_download_filename(get_string(
-            'responsesfilename', 'quiz_responses'),
-            $courseshortname, $quiz->name);
-        $table->is_downloading($options->download, $filename,
-                $courseshortname . ' ' . format_string($quiz->name, true));
-        if ($table->is_downloading()) {
-            raise_memory_limit(MEMORY_EXTRA);
-        }
 
         $this->hasgroupstudents = false;
         if (!empty($groupstudentsjoins->joins)) {
