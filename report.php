@@ -171,17 +171,7 @@ class quiz_group_report extends quiz_attempts_report {
             $columns = array();
             $headers = array();
 
-            if (!$table->is_downloading() && $options->checkboxcolumn) {
-                $columns[] = 'checkbox';
-                $headers[] = null;
-            }
-
             $this->add_user_columns($table, $columns, $headers);
-            $this->add_state_column($columns, $headers);
-
-            if ($table->is_downloading()) {
-                $this->add_time_columns($columns, $headers);
-            }
 
             $this->add_grade_columns($quiz, $options->usercanseegrades, $columns, $headers);
 
