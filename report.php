@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the quiz responses report class.
+ * This file defines the quiz group report class.
  *
  * @package   quiz_group
  * @copyright 2017 Dr Bean
@@ -27,10 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
 require_once($CFG->dirroot . '/mod/quiz/report/group/group_table.php');
+require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_form.php');
 
 
 /**
- * Quiz report subclass for the responses report.
+ * Quiz report subclass for the group report.
  *
  * This report lists some combination of
  *  * what question each student saw (this makes sense if random questions were used).
@@ -49,10 +50,10 @@ class quiz_group_report extends quiz_attempts_report {
         global $OUTPUT, $DB;
 
         list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
-            = $this->init('responses', 'quiz_responses_settings_form',
+            = $this->init('group', 'mod_quiz_attempts_report_form',
                 $quiz, $cm, $course);
 
-        $options = new quiz_responses_options('responses', $quiz, $cm, $course);
+        $options = new quiz_group_options('group', $quiz, $cm, $course);
 
         if ($fromform = $this->form->get_data()) {
             $options->process_settings_from_form($fromform);
@@ -70,9 +71,9 @@ class quiz_group_report extends quiz_attempts_report {
         $courseshortname = format_string($course->shortname, true,
                 array('context' => context_course::instance($course->id)));
         if ($options->whichtries === question_attempt::LAST_TRY) {
-            $tableclassname = 'quiz_last_responses_table';
+            $tableclassname = 'quiz_last_group_table';
         } else {
-            $tableclassname = 'quiz_first_or_all_responses_table';
+            $tableclassname = 'quiz_first_or_all_group_table';
         }
         $table = new $tableclassname($quiz, $this->context, $this->qmsubselect,
             $options, $groupstudentsjoins, $studentsjoins,
