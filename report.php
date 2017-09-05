@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
 require_once($CFG->dirroot . '/mod/quiz/report/group/group_table.php');
-require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_form.php');
+require_once($CFG->dirroot . '/mod/quiz/report/responses/responses_form.php');
 
 
 /**
@@ -50,7 +50,7 @@ class quiz_group_report extends quiz_attempts_report {
         global $OUTPUT, $DB;
 
         list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
-            = $this->init('group', 'mod_quiz_attempts_report_form',
+            = $this->init('group', 'mod_quiz_responses_report_form',
                 $quiz, $cm, $course);
 
         $options = new quiz_group_options('group', $quiz, $cm, $course);
