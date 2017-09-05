@@ -50,7 +50,7 @@ class quiz_group_report extends quiz_attempts_report {
         global $OUTPUT, $DB;
 
         list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
-            = $this->init('group', 'mod_quiz_responses_report_form',
+            = $this->init('group', 'quiz_responses_settings_form',
                 $quiz, $cm, $course);
 
         $options = new quiz_group_options('group', $quiz, $cm, $course);
