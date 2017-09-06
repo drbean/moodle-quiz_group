@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the quiz responses table for showing first or all tries at a question.
+ * This file defines the quiz group table for showing first or all tries at a question.
  *
- * @package   quiz_responses
+ * @package   quiz_group
  * @copyright 2014 The Open University
  * @author    Jamie Pratt <me@jamiep.org>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,9 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * This is a table subclass for displaying the quiz responses report, showing first or all tries.
+ * This is a table subclass for displaying the quiz group report, showing first or all tries.
  *
- * @package   quiz_responses
+ * @package   quiz_group
  * @copyright 2014 The Open University
  * @author    Jamie Pratt <me@jamiep.org>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
