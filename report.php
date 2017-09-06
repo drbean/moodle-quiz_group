@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
 require_once($CFG->dirroot . '/mod/quiz/report/group/group_table.php');
-require_once($CFG->dirroot . '/mod/quiz/report/responses/responses_form.php');
+require_once($CFG->dirroot . '/mod/quiz/report/group/group_form.php');
 
 
 /**
@@ -50,7 +50,7 @@ class quiz_group_report extends quiz_attempts_report {
         global $OUTPUT, $DB;
 
         list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
-            = $this->init('group', 'quiz_responses_settings_form',
+            = $this->init('group', 'quiz_group_settings_form',
                 $quiz, $cm, $course);
 
         $options = new quiz_group_options('group', $quiz, $cm, $course);
@@ -174,13 +174,13 @@ class quiz_group_report extends quiz_attempts_report {
                     $columns[] = 'question' . $id;
                     $headers[] = get_string('questionx', 'question', $question->number);
                 }
-                if ($options->showresponses) {
+			if ($options->showresponses) {
                     $columns[] = 'response' . $id;
-                    $headers[] = get_string('responsex', 'quiz_responses', $question->number);
+                    $headers[] = get_string('responsex', 'quiz_group', $question->number);
                 }
                 if ($options->showright) {
                     $columns[] = 'right' . $id;
-                    $headers[] = get_string('rightanswerx', 'quiz_responses', $question->number);
+                    $headers[] = get_string('rightanswerx', 'quiz_group', $question->number);
                 }
             }
 
@@ -196,7 +196,7 @@ class quiz_group_report extends quiz_attempts_report {
             $table->no_sorting('feedbacktext');
             $table->column_class('sumgrades', 'bold');
 
-            $table->set_attribute('id', 'responses');
+            $table->set_attribute('id', 'group');
 
             $table->collapsible(true);
 
