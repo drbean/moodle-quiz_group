@@ -36,3 +36,4 @@ $string['responsex'] = 'Response {$a}';
 $string['rightanswer'] = 'right answer';
 $string['rightanswerx'] = 'Right answer {$a}';
 $string['showthe'] = 'Show the';
+$string['regradeselected'] = 'Regrade selected attempts';
