@@ -49,7 +49,7 @@ class quiz_last_responses_table extends quiz_group_table {
      */
     public function __construct($quiz, $context, $qmsubselect, quiz_group_options $options,
             \core\dml\sql_join $groupstudentsjoins, \core\dml\sql_join $studentsjoins, $questions, $reporturl) {
-        parent::__construct('mod-quiz-report-group-report', $quiz, $context,
+        parent::__construct($quiz, $context,
                 $qmsubselect, $options, $groupstudentsjoins, $studentsjoins, $questions, $reporturl);
     }
 
