@@ -56,6 +56,8 @@ class quiz_group_report extends quiz_attempts_report {
             = $this->init('group', 'quiz_group_settings_form',
                 $quiz, $cm, $course);
 
+	$groups = groups_get_all_group( $cm->course );
+
         $options = new quiz_group_options('group', $quiz, $cm, $course);
 
         if ($fromform = $this->form->get_data()) {
