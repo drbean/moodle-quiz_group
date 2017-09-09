@@ -49,6 +49,71 @@ require_once($CFG->dirroot . '/mod/quiz/report/group/first_or_all_responses_tabl
  */
 class quiz_group_report extends quiz_attempts_report {
 
+    /**
+     *  Override quiz_attempts_report init and use our get_student_joins
+     *
+     *  Initialise various aspects of this report.
+     *
+     * @param string $mode
+     * @param string $formclass
+     * @param object $quiz
+     * @param object $cm
+     * @param object $course
+     * @return array with four elements:
+     *      0 => integer the current group id (0 for none).
+     *      1 => \core\dml\sql_join Contains joins, wheres, params for all the students in this course.
+     *      2 => \core\dml\sql_join Contains joins, wheres, params for all the students in the current group.
+     *      3 => \core\dml\sql_join Contains joins, wheres, params for all the students to show in the report.
+     *              Will be the same as either element 1 or 2.
+     */
+    protected function init($mode, $formclass, $quiz, $cm, $course) {
+        $this->mode = $mode;
+        $this->context = context_module::instance($cm->id);
+        list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins) = $this->get_students_joins(
+                $cm, $course);
+        $this->qmsubselect = quiz_report_qm_filter_select($quiz);
+        $this->form = new $formclass($this->get_base_url(),
+                array('quiz' => $quiz, 'currentgroup' => $currentgroup, 'context' => $this->context));
+        return array($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins);
+    }
+
+    /**
+     *  Override quiz_attempts_report get_student_joins and use our init
+     *
+     * Get sql fragments (joins) which can be used to build queries that
+     * will select an appropriate set of students to show in the reports.
+     *
+     * @param object $cm the course module.
+     * @param object $course the course settings.
+     * @return array with four elements:
+     *      0 => integer the current group id (0 for none).
+     *      1 => \core\dml\sql_join Contains joins, wheres, params for all the students in this course.
+     *      2 => \core\dml\sql_join Contains joins, wheres, params for all the students in the current group.
+     *      3 => \core\dml\sql_join Contains joins, wheres, params for all the students to show in the report.
+     *              Will be the same as either element 1 or 2.
+     */
+    protected function get_students_joins($cm, $course = null) {
+        $currentgroup = $this->get_current_group($cm, $course, $this->context);
+
+        $empty = new \core\dml\sql_join();
+        if ($currentgroup == self::NO_GROUPS_ALLOWED) {
+            return array($currentgroup, $empty, $empty, $empty);
+        }
+
+        $studentsjoins = get_enrolled_with_capabilities_join($this->context);
+
+        if (empty($currentgroup)) {
+            return array($currentgroup, $studentsjoins, $empty, $studentsjoins);
+        }
+
+        // We have a currently selected group.
+        $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
+                array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
+
+        return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
+    }
+
+
     public function display($quiz, $cm, $course) {
         global $OUTPUT, $DB;
 
