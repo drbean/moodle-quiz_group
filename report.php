@@ -188,7 +188,7 @@ class quiz_group_report extends quiz_attempts_report {
             if (!$table->is_downloading()) {
                 $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, true);
                 $all_group_menu = preg_replace( "<option",
-                    '<option value="0">All groups</option><option', $group_menu, 0 );
+                    '<option value="77">All groups</option><option', $group_menu, 0 );
                 echo $all_group_menu;
             }
         }
