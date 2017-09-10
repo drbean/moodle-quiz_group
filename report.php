@@ -189,7 +189,7 @@ class quiz_group_report extends quiz_attempts_report {
                 $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, true);
                 $trimmed_menu = rtrim($group_menu, "</div>");
                 $trimmed_menu .= "All groups </div>";
-                // echo $group_menu;
+                echo $trimmed_menu;
             }
         }
 
