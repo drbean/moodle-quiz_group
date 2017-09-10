@@ -186,7 +186,8 @@ class quiz_group_report extends quiz_attempts_report {
             // Groups are being used, so output the group selector if we are
             // not downloading.
             if (!$table->is_downloading()) {
-                groups_print_activity_menu($cm, $options->get_url());
+                $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, true);
+                echo $group_menu;
             }
         }
 
