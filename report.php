@@ -189,7 +189,7 @@ class quiz_group_report extends quiz_attempts_report {
                 $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, false);
                 $all_group_menu = preg_replace( 'participants',
                     'groups', $group_menu, 1 );
-                echo $OUTPUT->notification($all_group_menu);
+                echo $OUTPUT->notification($group_menu);
                 echo $group_menu;
             }
         }
