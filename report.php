@@ -186,9 +186,9 @@ class quiz_group_report extends quiz_attempts_report {
             // Groups are being used, so output the group selector if we are
             // not downloading.
             if (!$table->is_downloading()) {
-                $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, true);
-                $all_group_menu = preg_replace( "<option",
-                    '<option value="77">All groups</option><option', $group_menu, 0 );
+                $group_menu = groups_print_activity_menu($cm, $options->get_url(), false, true);
+                $all_group_menu = preg_replace( '<option value="1">All participants</option>',
+                    '<option value="1">All groups</option>', $group_menu, 1 );
                 echo $all_group_menu;
             }
         }
