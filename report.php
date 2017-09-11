@@ -93,6 +93,9 @@ class quiz_group_report extends quiz_attempts_report {
      *              Will be the same as either element 1 or 2.
      */
     protected function get_students_joins($cm, $course = null) {
+
+        $allgroups = groups_get_all_groups($cm->id, 0, 0, 'g.*', false);
+
         $currentgroup = $this->get_current_group($cm, $course, $this->context);
 
         $empty = new \core\dml\sql_join();
