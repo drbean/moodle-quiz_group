@@ -69,8 +69,8 @@ class quiz_group_report extends quiz_attempts_report {
     protected function init($mode, $formclass, $quiz, $cm, $course) {
         $this->mode = $mode;
         $this->context = context_module::instance($cm->id);
-        list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins) = $this->get_students_joins(
-                $cm, $course);
+        $alldata = $this->get_students_joins( $cm, $course);
+        list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins) = $alldata['1-32'];
         $this->qmsubselect = quiz_report_qm_filter_select($quiz);
         $this->form = new $formclass($this->get_base_url(),
                 array('quiz' => $quiz, 'currentgroup' => $currentgroup, 'context' => $this->context));
@@ -95,6 +95,7 @@ class quiz_group_report extends quiz_attempts_report {
     protected function get_students_joins($cm, $course = null) {
 
         $allgroups = groups_get_all_groups($cm->id, 0, 0, 'g.*', false);
+        $alldata = array ();
 
         foreach ( $allgroups as $currentgroup_object )
         {
@@ -115,8 +116,9 @@ class quiz_group_report extends quiz_attempts_report {
             $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
                 array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
 
-            return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
+            $alldata[$currentgroup] = array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
         }
+        return $alldata;
     }
 
 
@@ -126,8 +128,6 @@ class quiz_group_report extends quiz_attempts_report {
         list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
             = $this->init('group', 'quiz_group_settings_form',
                 $quiz, $cm, $course);
-
-	$groups = groups_get_all_groups( $cm->course );
 
         $options = new quiz_group_options('group', $quiz, $cm, $course);
 
