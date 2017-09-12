@@ -70,7 +70,7 @@ class quiz_group_report extends quiz_attempts_report {
         $this->mode = $mode;
         $this->context = context_module::instance($cm->id);
         $alldata = $this->get_students_joins( $cm, $course);
-        list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins) = $alldata['1-32'];
+        list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins) = $alldata;
         $this->qmsubselect = quiz_report_qm_filter_select($quiz);
         $this->form = new $formclass($this->get_base_url(),
                 array('quiz' => $quiz, 'currentgroup' => $currentgroup, 'context' => $this->context));
@@ -118,7 +118,7 @@ class quiz_group_report extends quiz_attempts_report {
 
             $alldata[$currentgroup] = array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
         }
-        return $alldata;
+        return $alldata['1-32'];
     }
 
 
