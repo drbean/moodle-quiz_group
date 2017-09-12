@@ -112,11 +112,14 @@ class quiz_group_report extends quiz_attempts_report {
                 return array($currentgroup, $studentsjoins, $empty, $studentsjoins);
             }
 
-            // We have a currently selected group.
-            $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
-                array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
+            if (!empty (groups_group_exists($currentgroup ))) 
+            {
+                // We have a currently selected group.
+                $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
+                    array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
 
-            $alldata[$currentgroup] = array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
+                $alldata['1-32'] = array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
+            }
         }
         return $alldata['1-32'];
     }
