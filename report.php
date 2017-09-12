@@ -119,6 +119,7 @@ class quiz_group_report extends quiz_attempts_report {
                     array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
 
                 $alldata[$currentgroup] = array($currentgroup, $studentsjoins, $empty, $empty);
+            }
         }
         return $alldata['1-32'];
     }
