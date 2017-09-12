@@ -96,24 +96,25 @@ class quiz_group_report extends quiz_attempts_report {
 
         $allgroups = groups_get_all_groups($cm->id, 0, 0, 'g.*', false);
 
-        $currentgroup = $this->get_current_group($cm, $course, $this->context);
+        foreach ( $allgroups as $groupid => $currentgroup )
+        {
+            $empty = new \core\dml\sql_join();
+            if ($currentgroup == self::NO_GROUPS_ALLOWED) {
+                return array($currentgroup, $empty, $empty, $empty);
+            }
 
-        $empty = new \core\dml\sql_join();
-        if ($currentgroup == self::NO_GROUPS_ALLOWED) {
-            return array($currentgroup, $empty, $empty, $empty);
-        }
+            $studentsjoins = get_enrolled_with_capabilities_join($this->context);
 
-        $studentsjoins = get_enrolled_with_capabilities_join($this->context);
+            if (empty($currentgroup)) {
+                return array($currentgroup, $studentsjoins, $empty, $studentsjoins);
+            }
 
-        if (empty($currentgroup)) {
-            return array($currentgroup, $studentsjoins, $empty, $studentsjoins);
-        }
-
-        // We have a currently selected group.
-        $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
+            // We have a currently selected group.
+            $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
                 array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
 
-        return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
+            return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
+        }
     }
 
 
