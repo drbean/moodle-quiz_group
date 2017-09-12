@@ -96,7 +96,7 @@ class quiz_group_report extends quiz_attempts_report {
 
         $allgroups = groups_get_all_groups($cm->id, 0, 0, 'g.*', false);
 
-        foreach ( $allgroups as $groupid => $currentgroup )
+        foreach ( $allgroups as $currentgroup )
         {
             $empty = new \core\dml\sql_join();
             if ($currentgroup == self::NO_GROUPS_ALLOWED) {
