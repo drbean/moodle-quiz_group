@@ -154,8 +154,9 @@ class quiz_group_report extends quiz_attempts_report {
         } else {
             $tableclassname = 'quiz_first_or_all_responses_table';
         }
+            $empty = new \core\dml\sql_join();
         $table = new $tableclassname($quiz, $this->context, $this->qmsubselect,
-            $options, $groupstudentsjoins, $studentsjoins,
+            $options, $empty, $studentsjoins,
             $questions, $options->get_url());
 
         $this->hasgroupstudents = false;
