@@ -184,7 +184,7 @@ class quiz_group_report extends quiz_attempts_report {
         }
 
         $this->process_actions($quiz, $cm, $currentgroup, $empty,
-            $allowedjoins, $options->get_url());
+            $empty, $options->get_url());
 
         // Start output.
         if (!$table->is_downloading()) {
