@@ -156,7 +156,7 @@ class quiz_group_report extends quiz_attempts_report {
         }
             $empty = new \core\dml\sql_join();
         $table = new $tableclassname($quiz, $this->context, $this->qmsubselect,
-            $options, $empty, $studentsjoins,
+            $options, $empty, $empty,
             $questions, $options->get_url());
 
         $this->hasgroupstudents = false;
