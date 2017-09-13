@@ -117,7 +117,7 @@ class quiz_group_report extends quiz_attempts_report {
                 $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
                     array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
 
-                return array($currentgroup, $studentsjoins, $empty, $empty);
+                return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
             }
         }
     }
