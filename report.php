@@ -128,7 +128,6 @@ class quiz_group_report extends quiz_attempts_report {
     public function display($quiz, $cm, $course) {
         global $OUTPUT, $DB;
 
-            $empty = new \core\dml\sql_join();
         list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
             = $this->init('group', 'quiz_group_settings_form',
                 $quiz, $cm, $course);
@@ -156,7 +155,7 @@ class quiz_group_report extends quiz_attempts_report {
             $tableclassname = 'quiz_first_or_all_responses_table';
         }
         $table = new $tableclassname($quiz, $this->context, $this->qmsubselect,
-            $options, $empty, $empty,
+            $options, $groupstudentsjoins, $studentsjoins,
             $questions, $options->get_url());
 
         $this->hasgroupstudents = false;
@@ -183,8 +182,8 @@ class quiz_group_report extends quiz_attempts_report {
             $allowedjoins = new \core\dml\sql_join();
         }
 
-        $this->process_actions($quiz, $cm, $currentgroup, $empty,
-            $empty, $options->get_url());
+        $this->process_actions($quiz, $cm, $currentgroup, $groupstudentsjoins,
+            $allowedjoins, $options->get_url());
 
         // Start output.
         if (!$table->is_downloading()) {
