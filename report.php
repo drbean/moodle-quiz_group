@@ -148,6 +148,7 @@ class quiz_group_report extends quiz_attempts_report {
                 echo $OUTPUT->notification(get_string("groupmode: visible?"));
             // Groups are being used, so output the group selector
             groups_print_activity_menu($cm, $options->get_url(), true, false);
+            $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, false);
                 echo $OUTPUT->notification(get_string("groupmenu: $group_menu?"));
         }
 
