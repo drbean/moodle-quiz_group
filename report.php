@@ -31,6 +31,7 @@ require_once($CFG->dirroot . '/mod/quiz/report/group/group_form.php');
 require_once($CFG->dirroot . '/mod/quiz/report/group/group_options.php');
 require_once($CFG->dirroot . '/mod/quiz/report/group/last_responses_table.php');
 require_once($CFG->dirroot . '/mod/quiz/report/group/first_or_all_responses_table.php');
+require_once($CFG->dirroot . '/lib/grouplib.php');
 
 
 /**
