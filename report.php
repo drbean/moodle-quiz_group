@@ -136,6 +136,7 @@ class quiz_group_report extends quiz_attempts_report {
 
         if (empty($currentgroup)) {
             return array($currentgroup, $studentsjoins, $empty, $studentsjoins);
+            echo $OUTPUT->notification( "no groupid" . $currentgroup );
         }
 
         $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
