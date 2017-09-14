@@ -121,6 +121,17 @@ class quiz_group_report extends quiz_attempts_report {
         //    }
         //}
         $this->currentgroup = $this->get_current_group($cm, $course, $this->context);
+        $empty = new \core\dml\sql_join();
+        if ($currentgroup == self::NO_GROUPS_ALLOWED) {
+            return array($currentgroup, $empty, $empty, $empty);
+        }
+
+        $studentsjoins = get_enrolled_with_capabilities_join($this->context);
+
+        if (empty($currentgroup)) {
+            return array($currentgroup, $studentsjoins, $empty, $studentsjoins);
+        }
+
         $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
             array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
         return array($this->currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
