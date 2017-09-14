@@ -101,9 +101,8 @@ class quiz_group_report extends quiz_attempts_report {
         $groupid = $currentgroup_object->id;
         echo $OUTPUT->notification( "group 0 groupid" . $groupid );
 
-        foreach ( $allgroups as $currentgroup_object )
+        foreach ( range(113, 139) as $currentgroup )
         {
-            $currentgroup = $currentgroup_object->id;
             echo $OUTPUT->notification( "allgroup groupid" . $currentgroup );
         //    $empty = new \core\dml\sql_join();
 
@@ -126,7 +125,7 @@ class quiz_group_report extends quiz_attempts_report {
         //        return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
         //    }
         }
-        $currentgroup = 122;
+        // $currentgroup = $this->get_current_group($cm, $course, $this->context);
         $empty = new \core\dml\sql_join();
         if ($currentgroup == self::NO_GROUPS_ALLOWED) {
             return array($currentgroup, $empty, $empty, $empty);
