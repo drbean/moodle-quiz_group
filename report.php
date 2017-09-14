@@ -155,6 +155,8 @@ class quiz_group_report extends quiz_attempts_report {
                 echo '<div class="quizattemptcounts">' . $strattemptnum .
                     '</div>';
         }
+        // Print the display options.
+        $this->form->display();
 
         foreach ( $allgroupdata as $groupid => $groupdata )
         {
@@ -210,8 +212,6 @@ class quiz_group_report extends quiz_attempts_report {
                     echo $OUTPUT->notification(get_string('nostudentsingroup'));
                 }
             }
-            // Print the display options.
-            $this->form->display();
         }
 
         $hasstudents = $hasstudents && (!$currentgroup || $this->hasgroupstudents);
