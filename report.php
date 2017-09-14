@@ -144,6 +144,18 @@ class quiz_group_report extends quiz_attempts_report {
         // Start output.
         $this->print_header_and_tabs($cm, $course, $quiz, $this->mode);
 
+        if ($groupmode = groups_get_activity_groupmode($cm)) {
+            // Groups are being used, so output the group selector
+            $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, false);
+        }
+
+        // Print information on the number of existing attempts.
+            if ($strattemptnum = quiz_num_attempt_summary($quiz, $cm, true,
+                122)) {
+                echo '<div class="quizattemptcounts">' . $strattemptnum .
+                    '</div>';
+        }
+
         foreach ( $allgroupdata as $groupid => $groupdata )
         {
             list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
@@ -187,24 +199,6 @@ class quiz_group_report extends quiz_attempts_report {
 
             $this->process_actions($quiz, $cm, $currentgroup, $groupstudentsjoins,
                 $allowedjoins, $options->get_url());
-
-            if ($groupmode = groups_get_activity_groupmode($cm)) {
-                // Groups are being used, so output the group selector if we are
-                // not downloading.
-                if (!$table->is_downloading()) {
-                    $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, false);
-                }
-            }
-
-            // Print information on the number of existing attempts.
-            if (!$table->is_downloading()) {
-                // Do not print notices when downloading.
-                if ($strattemptnum = quiz_num_attempt_summary($quiz, $cm, true,
-                    $currentgroup)) {
-                    echo '<div class="quizattemptcounts">' . $strattemptnum .
-                        '</div>';
-                }
-            }
 
             $hasquestions = quiz_has_questions($quiz->id);
             if (!$table->is_downloading()) {
