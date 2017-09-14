@@ -150,8 +150,7 @@ class quiz_group_report extends quiz_attempts_report {
         }
 
         // Print information on the number of existing attempts.
-            if ($strattemptnum = quiz_num_attempt_summary($quiz, $cm, true,
-                122)) {
+            if ($strattemptnum = quiz_num_attempt_summary($quiz, $cm, true)) {
                 echo '<div class="quizattemptcounts">' . $strattemptnum .
                     '</div>';
         }
