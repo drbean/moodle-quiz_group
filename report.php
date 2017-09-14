@@ -73,7 +73,7 @@ class quiz_group_report extends quiz_attempts_report {
         $allgroupdata = $this->get_students_joins( $cm, $course);
         $this->qmsubselect = quiz_report_qm_filter_select($quiz);
         $this->form = new $formclass($this->get_base_url(),
-                array('quiz' => $quiz, 'currentgroup' => 122, 'context' => $this->context));
+                array('quiz' => $quiz, 'currentgroup' => 0, 'context' => $this->context));
         return $allgroupdata;
     }
 
