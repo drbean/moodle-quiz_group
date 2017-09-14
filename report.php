@@ -142,6 +142,12 @@ class quiz_group_report extends quiz_attempts_report {
         // Load the required questions.
         $questions = quiz_report_get_significant_questions($quiz);
 
+        // Start output.
+        if (!$table->is_downloading()) {
+            // Only print headers if not asked to download data.
+            $this->print_header_and_tabs($cm, $course, $quiz, $this->mode);
+        }
+
         foreach ( $allgroupdata as $groupid => $groupdata )
         {
             list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
@@ -185,12 +191,6 @@ class quiz_group_report extends quiz_attempts_report {
 
             $this->process_actions($quiz, $cm, $currentgroup, $groupstudentsjoins,
                 $allowedjoins, $options->get_url());
-
-            // Start output.
-            if (!$table->is_downloading()) {
-                // Only print headers if not asked to download data.
-                $this->print_header_and_tabs($cm, $course, $quiz, $this->mode);
-            }
 
             if ($groupmode = groups_get_activity_groupmode($cm)) {
                 // Groups are being used, so output the group selector if we are
