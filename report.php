@@ -98,12 +98,12 @@ class quiz_group_report extends quiz_attempts_report {
         $alldata = array ();
         $currentgroup_object = $allgroups[0];
         $groupid = $currentgroup_object->id;
-        echo $OUTPUT->notification( "groupid" . $groupid );
+        echo $OUTPUT->notification( "group 0 groupid" . $groupid );
 
         foreach ( $allgroups as $currentgroup_object )
         {
             $currentgroup = $currentgroup_object->id;
-            echo $OUTPUT->notification( "groupid" . $currentgroup );
+            echo $OUTPUT->notification( "allgroup groupid" . $currentgroup );
         //    $empty = new \core\dml\sql_join();
 
         //    if ($currentgroup == self::NO_GROUPS_ALLOWED) {
