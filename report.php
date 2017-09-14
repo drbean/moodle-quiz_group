@@ -101,7 +101,7 @@ class quiz_group_report extends quiz_attempts_report {
         $groupid = $currentgroup_object->id;
         echo $OUTPUT->notification( "group 0 groupid" . $groupid );
 
-        foreach ( range(113, 139) as $currentgroup )
+        foreach ( $allgroups as $currentgroup => $groupdata )
         {
             $empty = new \core\dml\sql_join();
 
