@@ -95,7 +95,7 @@ class quiz_group_report extends quiz_attempts_report {
 
         $allgroups = groups_get_all_groups($cm->id, 0, 0, 'g.*', false);
         $alldata = array ();
-        $currentgroup_object = array[0];
+        $currentgroup_object = $allgroups[0];
         $groupid = $currentgroup_object->id;
         echo $OUTPUT->notification( "groupid" . $groupid );
 
