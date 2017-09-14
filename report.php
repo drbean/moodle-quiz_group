@@ -145,8 +145,10 @@ class quiz_group_report extends quiz_attempts_report {
         $this->print_header_and_tabs($cm, $course, $quiz, $this->mode);
 
         if ($groupmode = groups_get_activity_groupmode($cm)) {
+                echo $OUTPUT->notification(get_string("groupmode: visible?"));
             // Groups are being used, so output the group selector
             $group_menu = groups_print_activity_menu($cm, $options->get_url(), true, false);
+                echo $OUTPUT->notification(get_string("groupmenu: $group_menu?"));
         }
 
         // Print information on the number of existing attempts.
