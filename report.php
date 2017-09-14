@@ -214,66 +214,66 @@ class quiz_group_report extends quiz_attempts_report {
                     echo $OUTPUT->notification(get_string('nostudentsingroup'));
                 }
             }
+            $hasstudents = $hasstudents && (!$currentgroup || $this->hasgroupstudents);
+            if ($hasquestions && ($hasstudents || $options->attempts == self::ALL_WITH)) {
+
+                list($fields, $from, $where, $params) = $table->base_sql($allowedjoins);
+
+                $table->set_count_sql("SELECT COUNT(1) FROM $from WHERE $where", $params);
+
+                $table->set_sql($fields, $from, $where, $params);
+
+                if (!$table->is_downloading()) {
+                    // Print information on the grading method.
+                    if ($strattempthighlight = quiz_report_highlighting_grading_method(
+                            $quiz, $this->qmsubselect, $options->onlygraded)) {
+                        echo '<div class="quizattemptcounts">' . $strattempthighlight . '</div>';
+                    }
+                }
+
+                // Define table columns.
+                $columns = array();
+                $headers = array();
+
+                $this->add_user_columns($table, $columns, $headers);
+
+                $this->add_grade_columns($quiz, $options->usercanseegrades, $columns, $headers);
+
+                foreach ($questions as $id => $question) {
+                    if ($options->showqtext) {
+                        $columns[] = 'question' . $id;
+                        $headers[] = get_string('questionx', 'question', $question->number);
+                    }
+                            if ($options->showresponses) {
+                        $columns[] = 'response' . $id;
+                        $headers[] = get_string('responsex', 'quiz_group', $question->number);
+                    }
+                    if ($options->showright) {
+                        $columns[] = 'right' . $id;
+                        $headers[] = get_string('rightanswerx', 'quiz_group', $question->number);
+                    }
+                }
+
+                $table->define_columns($columns);
+                $table->define_headers($headers);
+                $table->sortable(true, 'uniqueid');
+
+                // Set up the table.
+                $table->define_baseurl($options->get_url());
+
+                $this->configure_user_columns($table);
+
+                $table->no_sorting('feedbacktext');
+                $table->column_class('sumgrades', 'bold');
+
+                $table->set_attribute('id', 'group');
+
+                $table->collapsible(true);
+
+                $table->out($options->pagesize, true);
+            }
         }
 
-        $hasstudents = $hasstudents && (!$currentgroup || $this->hasgroupstudents);
-        if ($hasquestions && ($hasstudents || $options->attempts == self::ALL_WITH)) {
-
-            list($fields, $from, $where, $params) = $table->base_sql($allowedjoins);
-
-            $table->set_count_sql("SELECT COUNT(1) FROM $from WHERE $where", $params);
-
-            $table->set_sql($fields, $from, $where, $params);
-
-            if (!$table->is_downloading()) {
-                // Print information on the grading method.
-                if ($strattempthighlight = quiz_report_highlighting_grading_method(
-                        $quiz, $this->qmsubselect, $options->onlygraded)) {
-                    echo '<div class="quizattemptcounts">' . $strattempthighlight . '</div>';
-                }
-            }
-
-            // Define table columns.
-            $columns = array();
-            $headers = array();
-
-            $this->add_user_columns($table, $columns, $headers);
-
-            $this->add_grade_columns($quiz, $options->usercanseegrades, $columns, $headers);
-
-            foreach ($questions as $id => $question) {
-                if ($options->showqtext) {
-                    $columns[] = 'question' . $id;
-                    $headers[] = get_string('questionx', 'question', $question->number);
-                }
-			if ($options->showresponses) {
-                    $columns[] = 'response' . $id;
-                    $headers[] = get_string('responsex', 'quiz_group', $question->number);
-                }
-                if ($options->showright) {
-                    $columns[] = 'right' . $id;
-                    $headers[] = get_string('rightanswerx', 'quiz_group', $question->number);
-                }
-            }
-
-            $table->define_columns($columns);
-            $table->define_headers($headers);
-            $table->sortable(true, 'uniqueid');
-
-            // Set up the table.
-            $table->define_baseurl($options->get_url());
-
-            $this->configure_user_columns($table);
-
-            $table->no_sorting('feedbacktext');
-            $table->column_class('sumgrades', 'bold');
-
-            $table->set_attribute('id', 'group');
-
-            $table->collapsible(true);
-
-            $table->out($options->pagesize, true);
-        }
         return true;
     }
 
