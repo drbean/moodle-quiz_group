@@ -125,7 +125,7 @@ class quiz_group_report extends quiz_attempts_report {
         //        return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
         //    }
         }
-        // $currentgroup = $this->get_current_group($cm, $course, $this->context);
+        $currentgroup = 122;
         $empty = new \core\dml\sql_join();
         if ($currentgroup == self::NO_GROUPS_ALLOWED) {
             return array($currentgroup, $empty, $empty, $empty);
