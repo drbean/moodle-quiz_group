@@ -103,7 +103,6 @@ class quiz_group_report extends quiz_attempts_report {
 
         foreach ( range(113, 139) as $currentgroup )
         {
-            echo $OUTPUT->notification( "allgroup groupid" . $currentgroup );
             $empty = new \core\dml\sql_join();
 
             if ($currentgroup == self::NO_GROUPS_ALLOWED) {
