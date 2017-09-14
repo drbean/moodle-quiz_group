@@ -171,7 +171,7 @@ class quiz_group_report extends quiz_attempts_report {
             if ($options->whichtries === question_attempt::LAST_TRY) {
                 $tableclassname = 'quiz_last_responses_table';
             } else {
-                $tableclassname = 'quiz_first_or_all_responses_table';
+                $tableclassname = 'quiz_last_responses_table';
             }
             $table = new $tableclassname($quiz, $this->context, $this->qmsubselect,
                 $options, $groupstudentsjoins, $studentsjoins,
