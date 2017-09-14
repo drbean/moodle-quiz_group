@@ -143,10 +143,7 @@ class quiz_group_report extends quiz_attempts_report {
         $questions = quiz_report_get_significant_questions($quiz);
 
         // Start output.
-        if (!$table->is_downloading()) {
-            // Only print headers if not asked to download data.
-            $this->print_header_and_tabs($cm, $course, $quiz, $this->mode);
-        }
+        $this->print_header_and_tabs($cm, $course, $quiz, $this->mode);
 
         foreach ( $allgroupdata as $groupid => $groupdata )
         {
