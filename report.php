@@ -119,11 +119,11 @@ class quiz_group_report extends quiz_attempts_report {
 
                 return array($currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
             }
-            $this->currentgroup = $this->get_current_group($cm, $course, $this->context);
-            $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
-                array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
-            return array($this->currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
         }
+        $this->currentgroup = $this->get_current_group($cm, $course, $this->context);
+        $groupstudentsjoins = get_enrolled_with_capabilities_join($this->context, '',
+            array('mod/quiz:attempt', 'mod/quiz:reviewmyattempts'), $currentgroup);
+        return array($this->currentgroup, $studentsjoins, $groupstudentsjoins, $groupstudentsjoins);
     }
 
 
