@@ -95,7 +95,7 @@ class quiz_group_report extends quiz_attempts_report {
     protected function get_students_joins($cm, $course = null) {
         global $OUTPUT;
 
-        $allgroups = groups_get_all_groups($course);
+        $allgroups = groups_get_all_groups($course->id);
         $alldata = array ();
         $currentgroup_object = $allgroups[0];
         $groupid = $currentgroup_object->id;
