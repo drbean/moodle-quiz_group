@@ -311,9 +311,9 @@ class quiz_group_table extends quiz_attempts_report_table {
     public function query_db($pagesize, $useinitialsbar = true) {
         parent::query_db($pagesize, $useinitialsbar);
 
-        if ($this->options->slotmarks && has_capability('mod/quiz:regrade', $this->context)) {
-            $this->regradedqs = $this->get_regraded_questions();
-        }
+        //if ($this->options->slotmarks && has_capability('mod/quiz:regrade', $this->context)) {
+        //    $this->regradedqs = $this->get_regraded_questions();
+        //}
     }
 
     /**
