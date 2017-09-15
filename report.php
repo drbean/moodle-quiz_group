@@ -97,9 +97,6 @@ class quiz_group_report extends quiz_attempts_report {
 
         $allgroups = groups_get_all_groups($course->id);
         $alldata = array ();
-        $currentgroup_object = $allgroups['122'];
-        $groupid = $currentgroup_object->id;
-        echo $OUTPUT->notification( "group 0 groupid" . $groupid );
 
         foreach ( $allgroups as $currentgroup => $groupdata )
         {
