@@ -165,9 +165,6 @@ class quiz_group_report extends quiz_attempts_report {
             list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
                 = $groupdata;
 
-            // Prepare for downloading, if applicable.
-            $courseshortname = format_string($course->shortname, true,
-                array('context' => context_course::instance($course->id)));
             if ($options->whichtries === question_attempt::LAST_TRY) {
                 $tableclassname = 'quiz_last_responses_table';
             } else {
@@ -205,14 +202,12 @@ class quiz_group_report extends quiz_attempts_report {
                 $allowedjoins, $options->get_url());
 
             $hasquestions = quiz_has_questions($quiz->id);
-            if (!$table->is_downloading()) {
-                if (!$hasquestions) {
-                    echo quiz_no_questions_message($quiz, $cm, $this->context);
-                } else if (!$hasstudents) {
-                    echo $OUTPUT->notification(get_string('nostudentsyet'));
-                } else if ($currentgroup && !$this->hasgroupstudents) {
-                    echo $OUTPUT->notification(get_string('nostudentsingroup'));
-                }
+            if (!$hasquestions) {
+                echo quiz_no_questions_message($quiz, $cm, $this->context);
+            } else if (!$hasstudents) {
+                echo $OUTPUT->notification(get_string('nostudentsyet'));
+            } else if ($currentgroup && !$this->hasgroupstudents) {
+                echo $OUTPUT->notification(get_string('nostudentsingroup'));
             }
             $hasstudents = $hasstudents && (!$currentgroup || $this->hasgroupstudents);
             if ($hasquestions && ($hasstudents || $options->attempts == self::ALL_WITH)) {
@@ -223,12 +218,10 @@ class quiz_group_report extends quiz_attempts_report {
 
                 $table->set_sql($fields, $from, $where, $params);
 
-                if (!$table->is_downloading()) {
-                    // Print information on the grading method.
-                    if ($strattempthighlight = quiz_report_highlighting_grading_method(
-                            $quiz, $this->qmsubselect, $options->onlygraded)) {
-                        echo '<div class="quizattemptcounts">' . $strattempthighlight . '</div>';
-                    }
+                // Print information on the grading method.
+                if ($strattempthighlight = quiz_report_highlighting_grading_method(
+                    $quiz, $this->qmsubselect, $options->onlygraded)) {
+                    echo '<div class="quizattemptcounts">' . $strattempthighlight . '</div>';
                 }
 
                 // Define table columns.
