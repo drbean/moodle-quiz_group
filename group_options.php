@@ -48,11 +48,15 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
     /** @var bool which try/tries to show responses from. */
     public $whichtries = question_attempt::LAST_TRY;
 
+    /** @var bool whether to show marks for each question (slot). */
+    public $slotmarks = true;
+
     protected function get_url_params() {
         $params = parent::get_url_params();
         $params['qtext']      = $this->showqtext;
         $params['resp']       = $this->showresponses;
         $params['right']      = $this->showright;
+        $params['slotmarks']    = $this->slotmarks;
         if (quiz_allows_multiple_tries($this->quiz)) {
             $params['whichtries'] = $this->whichtries;
         }
@@ -64,6 +68,7 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
         $toform->qtext      = $this->showqtext;
         $toform->resp       = $this->showresponses;
         $toform->right      = $this->showright;
+        $toform->slotmarks  = $this->slotmarks;
         if (quiz_allows_multiple_tries($this->quiz)) {
             $toform->whichtries = $this->whichtries;
         }
@@ -77,6 +82,7 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
         $this->showqtext     = $fromform->qtext;
         $this->showresponses = $fromform->resp;
         $this->showright     = $fromform->right;
+        $this->slotmarks     = $fromform->slotmarks;
         if (quiz_allows_multiple_tries($this->quiz)) {
             $this->whichtries = $fromform->whichtries;
         }
@@ -88,6 +94,7 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
         $this->showqtext     = optional_param('qtext', $this->showqtext,     PARAM_BOOL);
         $this->showresponses = optional_param('resp',  $this->showresponses, PARAM_BOOL);
         $this->showright     = optional_param('right', $this->showright,     PARAM_BOOL);
+        $this->slotmarks     = optional_param('slotmarks', $this->slotmarks, PARAM_BOOL);
         if (quiz_allows_multiple_tries($this->quiz)) {
             $this->whichtries    = optional_param('whichtries', $this->whichtries, PARAM_ALPHA);
         }
@@ -99,6 +106,7 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
         $this->showqtext     = get_user_preferences('quiz_report_group_qtext', $this->showqtext);
         $this->showresponses = get_user_preferences('quiz_report_group_resp',  $this->showresponses);
         $this->showright     = get_user_preferences('quiz_report_group_right', $this->showright);
+        $this->slotmarks     = get_user_preferences('quiz_overview_slotmarks', $this->slotmarks);
         if (quiz_allows_multiple_tries($this->quiz)) {
             $this->whichtries    = get_user_preferences('quiz_report_group_which_tries', $this->whichtries);
         }
@@ -110,6 +118,9 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
         set_user_preference('quiz_report_group_qtext', $this->showqtext);
         set_user_preference('quiz_report_group_resp',  $this->showresponses);
         set_user_preference('quiz_report_group_right', $this->showright);
+        if (quiz_has_grades($this->quiz)) {
+            set_user_preference('quiz_overview_slotmarks', $this->slotmarks);
+        }
         if (quiz_allows_multiple_tries($this->quiz)) {
             set_user_preference('quiz_report_group_which_tries', $this->whichtries);
         }
@@ -121,6 +132,9 @@ class quiz_group_options extends mod_quiz_attempts_report_options {
         if (!$this->showqtext && !$this->showresponses && !$this->showright) {
             // We have to show at least something.
             $this->showresponses = true;
+        }
+        if (!$this->usercanseegrades) {
+            $this->slotmarks = false;
         }
 
         // We only want to show the checkbox to delete attempts
