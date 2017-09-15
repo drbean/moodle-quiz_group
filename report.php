@@ -152,6 +152,11 @@ class quiz_group_report extends quiz_attempts_report {
                 echo '<div class="quizattemptcounts">' . $strattemptnum .
                     '</div>';
         }
+        // Print information on the grading method.
+        if ($strattempthighlight = quiz_report_highlighting_grading_method(
+            $quiz, $this->qmsubselect, $options->onlygraded)) {
+            echo '<div class="quizattemptcounts">' . $strattempthighlight . '</div>';
+        }
         // Print the display options.
         $this->form->display();
 
@@ -212,12 +217,6 @@ class quiz_group_report extends quiz_attempts_report {
                 $table->set_count_sql("SELECT COUNT(1) FROM $from WHERE $where", $params);
 
                 $table->set_sql($fields, $from, $where, $params);
-
-                // Print information on the grading method.
-                if ($strattempthighlight = quiz_report_highlighting_grading_method(
-                    $quiz, $this->qmsubselect, $options->onlygraded)) {
-                    echo '<div class="quizattemptcounts">' . $strattempthighlight . '</div>';
-                }
 
                 // Define table columns.
                 $columns = array();
