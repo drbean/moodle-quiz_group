@@ -162,6 +162,8 @@ class quiz_group_report extends quiz_attempts_report {
 
         foreach ( $allgroupdata as $groupid => $groupdata )
         {
+            echo '<h4>' . groups_get_group_name($groupid) . '</h4>';
+
             list($currentgroup, $studentsjoins, $groupstudentsjoins, $allowedjoins)
                 = $groupdata;
 
